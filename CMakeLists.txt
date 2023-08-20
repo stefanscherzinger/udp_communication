@@ -13,18 +13,24 @@ find_package(Threads REQUIRED)
 # Client
 add_executable(client
         src/client.cpp
+        src/protocol.cpp
         )
-target_link_libraries(
-        client PUBLIC
+target_include_directories(client PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        )
+target_link_libraries(client PUBLIC
         Threads::Threads
         )
 
 # Server
 add_executable(server
         src/server.cpp
+        src/protocol.cpp
         )
-target_link_libraries(
-        server PUBLIC
+target_include_directories(server PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        )
+target_link_libraries(server PUBLIC
         Threads::Threads
         )
 

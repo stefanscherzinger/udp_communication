@@ -1,12 +1,12 @@
 #include <iostream>
 #include <boost/asio.hpp>
-#include <ostream>
+#include "udp_communication/protocol.h"
 
 using boost::asio::ip::udp;
 
 int main() {
     constexpr int port = 9000;
-    constexpr int datagram_size = 1024;
+    constexpr size_t msg_size = Message::size();
 
     boost::asio::io_service io_service;
     udp::socket socket(io_service);
@@ -17,13 +17,14 @@ int main() {
     socket.bind(endpoint);
 
     while (true) {
-        char data[datagram_size];
+        std::vector<uint8_t> buffer(msg_size);
         udp::endpoint sender_endpoint;
 
-        size_t length = socket.receive_from(boost::asio::buffer(data), sender_endpoint);
+        size_t length = socket.receive_from(boost::asio::buffer(buffer), sender_endpoint);
+        Message msg = Message::deserialize(buffer);
 
         std::cout << "Received " << length << " bytes from " << sender_endpoint << ": ";
-        std::cout << data << std::endl;
+        std::cout << msg.print() << std::endl;
     }
 
     return 0;
