@@ -1,20 +1,50 @@
 #include "boost/asio.hpp"
 #include <chrono>
+#include <stdexcept>
 #include <thread>
 #include "udp_communication/protocol.h"
+#include <iostream>
 
 using namespace boost::asio;
 
-int main()
+int main(int argc, char** argv)
 {
+  // User parameters
+  int port = 9000;
+  std::string remote_ip = "127.0.0.1";
+  auto safe_convert = [&](const char* str) {
+    try
+    {
+      return std::stoi(str);
+    }
+    catch (const std::invalid_argument& e)
+    {
+    }
+    return port;
+  };
+
+  switch(argc)
+  {
+    case 2:
+      port = safe_convert(argv[1]);
+      break;
+    case 3:
+      port = safe_convert(argv[1]);
+      remote_ip = argv[2];
+      break;
+    default:
+      std::cout << "Usage: client [port [server-ip]]" << std::endl;
+      break;
+  }
+  std::cout << "Sending to " << remote_ip << " on port: " << port << std::endl;
+
   io_service io_service;
   ip::udp::socket socket(io_service);
   ip::udp::endpoint remote_endpoint;
 
   socket.open(ip::udp::v4());
 
-  constexpr int port = 9000;
-  remote_endpoint = ip::udp::endpoint(ip::address::from_string("127.0.0.1"), port);
+  remote_endpoint = ip::udp::endpoint(ip::address::from_string(remote_ip), port);
 
   boost::system::error_code err;
 

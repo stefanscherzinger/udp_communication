@@ -1,12 +1,34 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include "udp_communication/protocol.h"
+#include <stdexcept>
+#include <string>
 #include <unordered_map>
 
 using boost::asio::ip::udp;
 
-int main() {
-    constexpr int port = 9001;
+int main(int argc, char** argv) {
+
+    // User parameters
+    const int port = [&]{
+    switch (argc)
+    {
+      case 2:
+        try
+        {
+          return std::stoi(argv[1]);
+        }
+        catch (const std::invalid_argument& e)
+        {
+        }
+      default:
+        std::cout << "Usage: server [port]" << std::endl;
+        return 9001;
+    }
+    }();
+
+    std::cout << "Listening on port: " << port << std::endl;
+
     constexpr size_t msg_size = Message::size();
 
     // Open a UDP-based port for clients.
