@@ -1,6 +1,6 @@
+#include <array>
 #include <string>
 #include <vector>
-#include <array>
 
 struct Message
 {
@@ -11,5 +11,5 @@ struct Message
   std::string print() const;
 
   std::vector<uint8_t> serialize() const;
-  static Message deserialize(const std::vector<uint8_t>& serialized_data);
+  static Message deserialize(const std::vector<uint8_t> & serialized_data);
 };

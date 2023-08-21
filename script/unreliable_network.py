@@ -4,6 +4,7 @@ import socket
 import random
 import threading
 
+
 def forward_packets(client_address, server_address):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -23,11 +24,13 @@ def forward_packets(client_address, server_address):
 
 
 def main():
-    client_address = ('127.0.0.1', 9000)
-    server_address = ('127.0.0.1', 9001)
+    client_address = ("127.0.0.1", 9000)
+    server_address = ("127.0.0.1", 9001)
 
     # Start a thread to forward packets from client to server
-    forward_thread = threading.Thread(target=forward_packets, args=(client_address, server_address))
+    forward_thread = threading.Thread(
+        target=forward_packets, args=(client_address, server_address)
+    )
     forward_thread.start()
 
     print("Packet forwarding started...")
@@ -36,6 +39,7 @@ def main():
         forward_thread.join()
     except KeyboardInterrupt:
         print("\nPacket forwarding stopped.")
+
 
 if __name__ == "__main__":
     main()
