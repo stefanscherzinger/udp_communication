@@ -8,7 +8,7 @@ This is a small example for a *client-server*-based UDP communication.
 We use *Boost*'s [asio](https://www.boost.org/doc/libs/1_83_0/doc/html/boost_asio.html) libraries for UDP socket management.
 You can install them with
 ```bash
-sudo apt-get install libboost-all-dev
+sudo apt-get install libboost-system-dev
 ```
 
 In a terminal, get the repo with

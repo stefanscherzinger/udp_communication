@@ -5,7 +5,7 @@ add_compile_options(-Wall)
 set(CMAKE_BUILD_TYPE Debug)  # Debug | RelWithDebInfo | Release
 
 find_package(Threads REQUIRED)
-find_package(Boost REQUIRED COMPONENTS)
+find_package(Boost REQUIRED COMPONENTS system)
 
 # -------------------------------------------------------------------------------
 # Build
@@ -21,7 +21,7 @@ target_include_directories(client PUBLIC
         )
 target_link_libraries(client PUBLIC
         Threads::Threads
-        Boost::boost
+        Boost::system
         )
 
 # Server
@@ -34,7 +34,7 @@ target_include_directories(server PUBLIC
         )
 target_link_libraries(server PUBLIC
         Threads::Threads
-        Boost::boost
+        Boost::system
         )
 
 # -------------------------------------------------------------------------------
