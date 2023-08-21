@@ -1,30 +1,27 @@
-#include "boost/asio.hpp"
 #include <chrono>
+#include <iostream>
 #include <stdexcept>
 #include <thread>
+
+#include "boost/asio.hpp"
 #include "udp_communication/protocol.h"
-#include <iostream>
 
 using namespace boost::asio;
 
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
   // User parameters
   int port = 9000;
   std::string remote_ip = "127.0.0.1";
-  auto safe_convert = [&](const char* str) {
-    try
-    {
+  auto safe_convert = [&](const char * str) {
+    try {
       return std::stoi(str);
-    }
-    catch (const std::invalid_argument& e)
-    {
+    } catch (const std::invalid_argument & e) {
     }
     return port;
   };
 
-  switch(argc)
-  {
+  switch (argc) {
     case 2:
       port = safe_convert(argv[1]);
       break;
@@ -51,8 +48,7 @@ int main(int argc, char** argv)
   constexpr double rate = 3.0;  // Hz
   uint32_t sequence_number = 0;
 
-  while (true)
-  {
+  while (true) {
     auto msg = Message();
     msg.sequence_number = sequence_number;
     msg.data = {0.1, 2.3, 3.4, 5.6};
