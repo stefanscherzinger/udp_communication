@@ -6,7 +6,7 @@
 using boost::asio::ip::udp;
 
 int main() {
-    constexpr int port = 9000;
+    constexpr int port = 9001;
     constexpr size_t msg_size = Message::size();
 
     // Open a UDP-based port for clients.
