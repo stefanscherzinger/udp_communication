@@ -6,6 +6,8 @@ jobs:
   ubuntu-build:
     runs-on: ubuntu-latest
     steps:
+    - name: Install boost
+      run: sudo apt-get install -y libboost-all-dev
     - name: Checkout
       uses: actions/checkout@v2.0.0
     - name: Build project
