@@ -26,6 +26,17 @@ cmake --install . --prefix $HOME/install
 ```
 
 ## Usage
+In every new terminal, use
 ```bash
 export PATH=$PATH:$HOME/install/bin
 ```
+to make both the `server` and `client` binaries globally available.
+You can then start them, e.g. with
+```bash
+server 9001
+```
+and
+```bash
+client 9001
+```
+and watch them communicate on `127.0.0.1` (localhost by default) on port `9001`.
